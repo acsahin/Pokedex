@@ -9,18 +9,16 @@ import SwiftUI
 
 struct PokedexListView: View {
     private let gridItems = [GridItem(.flexible()), GridItem(.flexible())]
+    @ObservedObject var viewModel = PokedexListViewModel()
     
     var body: some View {
         GeometryReader { geometry in
             NavigationView {
                 ScrollView {
                     LazyVGrid (columns: gridItems, alignment: .center, spacing: 16, content:{
-                        PokemonListCell()
-                        PokemonListCell()
-                        PokemonListCell()
-                        PokemonListCell()
-                        PokemonListCell()
-                        PokemonListCell()
+                        ForEach(viewModel.pokemonList) { pokemon in
+                            PokemonListCell(pokemon: pokemon)
+                        }
                     }).padding(.top,12)
                 }
                 .navigationBarTitleDisplayMode(.inline)
