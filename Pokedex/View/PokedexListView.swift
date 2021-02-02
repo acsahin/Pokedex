@@ -20,6 +20,31 @@ struct PokedexListView: View {
                             PokemonListCell(pokemon: pokemon)
                         }
                     }).padding(.top,12)
+                    HStack {
+                        if viewModel.backButtonVisibility {
+                            Button(action: {
+                                viewModel.backPage()
+                            }) {
+                                Image(systemName: "chevron.left")
+                                Text("Back")
+                            }.padding(9)
+                            .foregroundColor(.white)
+                            .background(Color.black)
+                            .cornerRadius(10)
+                        }
+                        Spacer()
+                        if viewModel.nextButtonVisibility {
+                            Button(action: {
+                                viewModel.nextPage()
+                            }) {
+                                Text("Next")
+                                Image(systemName: "chevron.right")
+                            }.padding(9)
+                            .foregroundColor(.white)
+                            .background(Color.black)
+                            .cornerRadius(10)
+                        }
+                    }.padding([.leading, .trailing], 58).padding(.top, 9)
                 }
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(leading:
