@@ -8,46 +8,67 @@
 import SwiftUI
 
 class PokedexListViewModel: ObservableObject {
-    @Published var pokemonList = [Pokemon]()
-    
+    @Published var currentPage = [Pokemon]()
     @Published var backButtonVisibility = false
     @Published var nextButtonVisibility = true
+    
+    var pokemonList = [Pokemon]()
     
     var limit = 30
     var offset = 0
     let listUrl = "https://pokeapi.co/api/v2"
-    let maxPokemonNumber = 1118
+    let maxPokemonNumber = 898
     
     init() {
-        fetchPage()
+        DispatchQueue.global().async {
+            self.fetchPokemon()
+        }
     }
     
-    func fetchPage() {
+    func fetchPokemon() {
         print("fetch starts...")
         var tempList = [Pokemon]()
         let group = DispatchGroup()
-        for order in (offset+1)...limit {
-            group.enter()
-            let stringUrl = listUrl + "/pokemon/\(order)"
-            print(stringUrl)
-            let url = URL(string: stringUrl)
-                URLSession.shared.dataTask(with: url!) { (data, response, error) in
-                    guard let data = data else { print("data"); return }
-                    guard let pok = try? JSONDecoder().decode(Pokemon.self, from: data) else { print("pok"); return }
-                    tempList.append(pok)
-                    group.leave()
-                }.resume()
+        for order in 1...maxPokemonNumber {
+                group.enter()
+                let stringUrl = self.listUrl + "/pokemon/\(order)"
+                print(stringUrl)
+                let url = URL(string: stringUrl)
+                    URLSession.shared.dataTask(with: url!) { (data, response, error) in
+                        guard let data = data else { print("data"); return }
+                        guard let pok = try? JSONDecoder().decode(Pokemon.self, from: data) else {
+                            print("pok, \(String(describing: response)), \(String(describing: error?.localizedDescription))"); return }
+                        print("\(order) is added")
+                        tempList.append(pok)
+                        if tempList.count % 30 == 0 {
+                            DispatchQueue.main.async {
+                                self.pokemonList.append(contentsOf: tempList)
+                                tempList.removeAll()
+                                if self.pokemonList.count == 30 {
+                                    self.makePage()
+                                }
+                            }
+                        }
+                        group.leave()
+                    }.resume()
+
+                group.wait()
         }
-        
         group.notify(queue: .main) {
-            self.pokemonList.removeAll()
-            self.pokemonList = tempList.sorted(by: {$0.id < $1.id})
+            print("notify selected")
+            if tempList.count % 30 == 0 {
+                self.pokemonList.append(contentsOf: tempList)
+                tempList.removeAll()
+                if self.pokemonList.count == 30 {
+                    self.makePage()
+                }
+            }
         }
     }
     
     func nextPage() {
         if limit != maxPokemonNumber {
-            if limit == 1110 {
+            if limit == 870 {
                 limit = maxPokemonNumber
                 nextButtonVisibility = false
             } else {
@@ -55,7 +76,7 @@ class PokedexListViewModel: ObservableObject {
             }
             offset = offset + 30
             backButtonVisibility = true
-            fetchPage()
+            makePage()
         }
     }
     
@@ -63,15 +84,23 @@ class PokedexListViewModel: ObservableObject {
         if offset != 0 {
             offset = offset - 30
             if limit == maxPokemonNumber {
-                limit = 1110
+                limit = 870
             } else {
                 limit = limit - 30
             }
             nextButtonVisibility = true
-            fetchPage()
+            makePage()
         }
         if offset == 0 {
             backButtonVisibility = false
         }
+    }
+    
+    func makePage() {
+        self.currentPage.removeAll()
+        for item in offset...(limit-1) {
+            self.currentPage.append(self.pokemonList[item])
+        }
+        print("make pageeee \(self.currentPage.count)")        
     }
 }
