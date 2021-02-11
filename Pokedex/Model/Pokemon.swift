@@ -5,7 +5,6 @@ struct Pokemon: Codable, Identifiable {
     let base_experience: Int
     let height: Int
     let name: String
-    let order: Int
     let stats: [StatElement]
     let types: [TypeElement]
     let weight: Int
@@ -31,20 +30,10 @@ struct Sprites: Codable {
 }
 // MARK: - Other
 struct Other: Codable {
-    let dreamWorld: DreamWorld
     let officialArtwork: OfficialArtwork
 
     enum CodingKeys: String, CodingKey {
-        case dreamWorld = "dream_world"
         case officialArtwork = "official-artwork"
-    }
-}
-// MARK: - DreamWorld
-struct DreamWorld: Codable {
-    let frontDefault: String
-
-    enum CodingKeys: String, CodingKey {
-        case frontDefault = "front_default"
     }
 }
 // MARK: - OfficialArtwork

@@ -48,47 +48,32 @@ struct PokemonListCell: View {
         .background(Color(red: 210/255, green: 210/255, blue: 210/255))
         .cornerRadius(12)
         .shadow(color: Color.gray, radius: 5, x: -1.0, y: 3.0)
-        .onTapGesture {
-            print("\(pokemon.sprites.other?.officialArtwork.frontDefault ?? "acs")")
-        }
     }
     
     func typeColor(typeName: String) -> some View {
         switch typeName {
         case "dark":
             return AnyView(Color.black)
-        case "ghost":
+        case "ghost","poison":
             return AnyView(Color.purple)
-        case "ice":
+        case "ice","water":
             return AnyView(Color.blue)
-        case "steel":
+        case "steel","normal":
             return AnyView(Color.gray)
-        case "rock":
+        case "rock","fighting":
             return AnyView(Color(UIColor.brown))
-        case "psychic":
-            return AnyView(Color.pink)
-        case "fighting":
-            return AnyView(Color(UIColor.brown))
-        case "fairy":
+        case "psychic","fairy":
             return AnyView(Color.pink)
         case "electric":
             return AnyView(Color.yellow)
         case "ground":
             return AnyView(LinearGradient(gradient: Gradient(colors: [.yellow, .gray]), startPoint: .top, endPoint: .bottom))
-        case "normal":
-            return AnyView(Color.gray)
         case "dragon":
             return AnyView(LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .top, endPoint: .bottom))
-        case "grass":
+        case "grass","bug":
             return AnyView(Color.green)
-        case "poison":
-            return AnyView(Color.purple)
         case "fire":
             return AnyView(Color.orange)
-        case "water":
-            return AnyView(Color.blue)
-        case "bug":
-            return AnyView(Color.green)
         case "flying":
             return AnyView(LinearGradient(gradient: Gradient(colors: [.white, .blue]), startPoint: .top, endPoint: .bottom))
         default:
@@ -98,44 +83,10 @@ struct PokemonListCell: View {
     
     func typeTextColor(typeName: String) -> Color {
         switch typeName {
-        case "dark":
-            return Color.white
-        case "ghost":
-            return Color.white
-        case "ice":
-            return Color.white
-        case "steel":
-            return Color.black
-        case "rock":
-            return Color.white
-        case "psychic":
-            return Color.white
-        case "fighting":
-            return Color.white
-        case "fairy":
-            return Color.black
-        case "electric":
-            return Color.black
-        case "ground":
-            return Color.black
-        case "normal":
-            return Color.black
-        case "dragon":
-            return Color.white
-        case "grass":
-            return Color.black
-        case "poison":
-            return Color.white
-        case "fire":
-            return Color.white
-        case "water":
-            return Color.white
-        case "bug":
-            return Color.white
-        case "flying":
-            return Color.black
-        default:
-            return Color.black
+        case "dark","ghost","ice","rock","psychic","fighting","dragon","poison","fire","water","bug":
+            return .white
+        default :
+            return .black
         }
     }
     

@@ -9,25 +9,27 @@ import SwiftUI
 
 class PokedexListViewModel: ObservableObject {
     @Published var currentPage = [Pokemon]()
-    @Published var backButtonVisibility = false
-    @Published var nextButtonVisibility = false
+    @Published var backButtonVisibility: Bool = false
+    @Published var nextButtonVisibility: Bool = false
+    @Published var isDownloading: Bool = true
     
     var pokemonList = [Pokemon]()
     
     var limit = 30
     var offset = 0
     let listUrl = "https://pokeapi.co/api/v2"
-    //898
-    let maxPokemonNumber = 118
+    
+    //898 total number
+    let maxPokemonNumber = 32
     
     init() {
         //Download pokemons async
         DispatchQueue.global().async {
-            self.fetchPokemon()
+            self.downloadPokemon()
         }
     }
     
-    func fetchPokemon() {
+    func downloadPokemon() {
         var tempList = [Pokemon]()
         let group = DispatchGroup()
         for order in 1...maxPokemonNumber {
@@ -49,7 +51,8 @@ class PokedexListViewModel: ObservableObject {
                         
                         //Share first page
                         if self.pokemonList.count == 30 {
-                            self.makePage()
+                            self.editCurrentPage()
+                            self.isDownloading = false
                         }
                         
                         //If the next page is ready
@@ -78,16 +81,17 @@ class PokedexListViewModel: ObservableObject {
     //MARK: - Next Page
     func nextPage() {
         if limit != maxPokemonNumber {
+            //At last page, next button is invisible
             if limit == (maxPokemonNumber - (maxPokemonNumber % 30)) {
                 limit = maxPokemonNumber
                 nextButtonVisibility = false
-                makePage()
+                editCurrentPage()
             } else {
                 limit = limit + 30
             }
             offset = offset + 30
             backButtonVisibility = true
-            makePage()
+            editCurrentPage()
         }
     }
     
@@ -101,7 +105,7 @@ class PokedexListViewModel: ObservableObject {
                 limit = limit - 30
             }
             nextButtonVisibility = true
-            makePage()
+            editCurrentPage()
         }
         
         //At first page, back button is invisible
@@ -110,8 +114,8 @@ class PokedexListViewModel: ObservableObject {
         }
     }
     
-    //MARK: - Show Page
-    func makePage() {
+    //MARK: - Edit Page
+    func editCurrentPage() {
         self.currentPage.removeAll()
         for item in offset...(limit-1) {
             self.currentPage.append(self.pokemonList[item])

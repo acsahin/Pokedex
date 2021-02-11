@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0844415D25D3B2AC0002FFE3 /* SwURL in Frameworks */ = {isa = PBXBuildFile; productRef = 0844415C25D3B2AC0002FFE3 /* SwURL */; };
+		086DFE6325D4FF7C00615E54 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086DFE6225D4FF7C00615E54 /* DetailView.swift */; };
 		08BC683C25A877BD005B3D42 /* PokedexApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BC683B25A877BD005B3D42 /* PokedexApp.swift */; };
 		08BC684025A877BF005B3D42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08BC683F25A877BF005B3D42 /* Assets.xcassets */; };
 		08BC684325A877BF005B3D42 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08BC684225A877BF005B3D42 /* Preview Assets.xcassets */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		086DFE6225D4FF7C00615E54 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		08BC683825A877BD005B3D42 /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08BC683B25A877BD005B3D42 /* PokedexApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexApp.swift; sourceTree = "<group>"; };
 		08BC683F25A877BF005B3D42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			children = (
 				08BC686C25A87AE0005B3D42 /* PokemonCell.swift */,
 				08D49F7F25A8AD5C0004961C /* PokedexView.swift */,
+				086DFE6225D4FF7C00615E54 /* DetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08D49F8825A8E1770004961C /* Pokemon.swift in Sources */,
+				086DFE6325D4FF7C00615E54 /* DetailView.swift in Sources */,
 				08BC686D25A87AE0005B3D42 /* PokemonCell.swift in Sources */,
 				08D49F8D25A8E3FE0004961C /* PokedexViewModel.swift in Sources */,
 				08BC683C25A877BD005B3D42 /* PokedexApp.swift in Sources */,
