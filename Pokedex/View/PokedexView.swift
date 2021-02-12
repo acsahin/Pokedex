@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PokedexListView: View {
-    private let gridItems = [GridItem(.flexible()), GridItem(.flexible())]
+    private let gridItems = [GridItem(.flexible(), spacing: -10), GridItem(.flexible(), spacing: -10)]
     @ObservedObject var viewModel = PokedexListViewModel()
     
     var body: some View {

@@ -22,8 +22,7 @@ struct PokemonListCell: View {
                 Text(pokemon.name.capitalized)
                     .font(.headline).bold()
                     .foregroundColor(.black)
-                    .padding(.top, 6)
-                    .frame(width: 180)
+                    .padding(.top, 9)
                 Text("#"+String(format: "%03d", pokemon.id))
                     .italic()
                     .font(.footnote)
@@ -31,6 +30,7 @@ struct PokemonListCell: View {
                 RemoteImageView(url: URL(string: (pokemon.sprites.other?.officialArtwork.frontDefault)!)!)
                     .scaledToFit()
                     .frame(width: 90, height: 90)
+                    .padding([.leading, .trailing], 40)
                 HStack {
                     ForEach(0..<pokemon.types.count, id: \.self) { index in
                         Text("\(pokemon.types[index].type.name)")
@@ -40,7 +40,7 @@ struct PokemonListCell: View {
                             .padding([.leading, .trailing], 9)
                             .background(typeColor(typeName: pokemon.types[index].type.name))
                             .cornerRadius(12)
-                            .padding(.bottom, 6)
+                            .padding(.bottom, 9)
                     }
                 }
             }

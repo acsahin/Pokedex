@@ -12,7 +12,7 @@ struct Pokemon: Codable, Identifiable {
 }
 // MARK: - StatElement
 struct StatElement: Codable {
-    let base_stat, effort: Int
+    let base_stat: Int
     let stat: TypeClass
 }
 // MARK: - TypeElement

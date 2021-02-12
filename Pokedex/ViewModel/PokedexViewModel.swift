@@ -20,7 +20,7 @@ class PokedexListViewModel: ObservableObject {
     let listUrl = "https://pokeapi.co/api/v2"
     
     //898 total number
-    let maxPokemonNumber = 32
+    let maxPokemonNumber = 898
     
     init() {
         //Download pokemons async

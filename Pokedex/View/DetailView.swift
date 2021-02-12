@@ -13,27 +13,18 @@ struct DetailView: View {
     
     let pokemon: Pokemon
     
+    var viewModel = DetailViewModel()
+    
     var body: some View {
         NavigationView {
             ZStack (alignment: .top){
                 VStack {
-                    HStack (alignment: .center, spacing: 15){
-                        Text(pokemon.name.capitalized)
-                            .font(.largeTitle).bold()
-                            .foregroundColor(.black)
-                            .padding(.top, 18)
-                        Text("#"+String(format: "%03d", pokemon.id))
-                            .italic()
-                            .font(.subheadline)
-                            .foregroundColor(Color(red: 111/255, green: 111/255, blue: 111/255))
-                            .padding(.top, 18)
-                    }
-                    HStack {
+                    HStack (alignment: .top){
                         VStack (alignment: .leading){
                             Text("Height")
                                 .font(.body)
                                 .foregroundColor(.gray)
-                                .padding([.top, .leading], 15)
+                                .padding(.leading, 15)
                             Text(String(Double(pokemon.height)/10)+" m")
                                 .font(.body)
                                 .bold()
@@ -66,16 +57,56 @@ struct DetailView: View {
                                     .foregroundColor(Color.black)
                             }
                         }.padding(.trailing, 75)
-                    }
+                    }.padding(.top, 30)
+                    VStack(alignment: .leading, spacing: 25) {
+                        Text("Stats")
+                            .font(.system(size: 22))
+                            .bold()
+                            .foregroundColor(Color.black)
+                        HStack(alignment: .top, spacing: 15) {
+                            ForEach(pokemon.stats, id: \.self.stat.name) {stat in
+                                VStack {
+                                    Text("1.5")
+                                    ZStack (alignment: .bottom){
+                                        Rectangle()
+                                            .fill(Color.white)
+                                            .frame(height: 200)
+                                            .cornerRadius(10)
+                                        Rectangle()
+                                            .fill(Color.blue)
+                                            .frame(height: CGFloat(stat.base_stat))
+                                            .cornerRadius(10)
+                                    }
+                                    Text(viewModel.makeTitle(name: stat.stat.name))
+                                        .lineLimit(nil)
+                                        .frame(width: 40)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                        .multilineTextAlignment(.center)
+                                        
+                                }
+                            }
+                        }
+                    }.padding(.top, 30)
+                    .padding([.leading, .trailing], 15)
+                    .padding(.bottom, 160)
                 }
                 .background(Color(red: 210/255, green: 210/255, blue: 210/255))
                 .clipShape(roundedPage())
-                .padding(.top, 265)
-                
-                RemoteImageView(url: URL(string: (pokemon.sprites.other?.officialArtwork.frontDefault)!)!)
-                    .scaledToFit()
-                    .frame(width: 200, height: 200)
-                    .padding(.top, 100)
+                .padding(.top, 200)
+                VStack {
+                    HStack (alignment: .center, spacing: 15){
+                        Text(pokemon.name.capitalized)
+                            .font(.largeTitle).bold()
+                            .foregroundColor(.black)
+                        Text("#"+String(format: "%03d", pokemon.id))
+                            .italic()
+                            .font(.subheadline)
+                            .foregroundColor(Color(red: 111/255, green: 111/255, blue: 111/255))
+                    }
+                    RemoteImageView(url: URL(string: (pokemon.sprites.other?.officialArtwork.frontDefault)!)!)
+                        .scaledToFit()
+                        .frame(width: 200, height: 200)
+                }.padding(.top, -25)
             }
         }.navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action: {
