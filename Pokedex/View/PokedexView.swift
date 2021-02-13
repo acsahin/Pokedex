@@ -35,8 +35,8 @@ struct PokedexListView: View {
                                         Image(systemName: "chevron.left")
                                         Text("Back")
                                     }.padding(9)
-                                    .foregroundColor(.white)
-                                    .background(Color(UIColor.systemGray))
+                                    .foregroundColor(Color(UIColor.systemBackground))
+                                    .background(Color(UIColor.label))
                                     .cornerRadius(10)
                                 }
                                 Spacer()
@@ -48,8 +48,8 @@ struct PokedexListView: View {
                                         Text("Next")
                                         Image(systemName: "chevron.right")
                                     }.padding(9)
-                                    .foregroundColor(.white)
-                                    .background(Color(UIColor.systemGray))
+                                    .foregroundColor(Color(UIColor.systemBackground))
+                                    .background(Color(UIColor.label))
                                     .cornerRadius(10)
                                 }
                             }.padding([.leading, .trailing], 58).padding(.top, 9)

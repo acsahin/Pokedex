@@ -26,7 +26,7 @@ struct PokemonListCell: View {
                 Text("#"+String(format: "%03d", pokemon.id))
                     .italic()
                     .font(.footnote)
-                    .foregroundColor(Color(red: 111/255, green: 111/255, blue: 111/255))
+                    .foregroundColor(Color("PokemonGray"))
                 RemoteImageView(url: URL(string: (pokemon.sprites.other?.officialArtwork.frontDefault)!)!)
                     .scaledToFit()
                     .frame(width: 90, height: 90)
@@ -45,7 +45,7 @@ struct PokemonListCell: View {
                 }
             }
         }
-        .background(Color(red: 210/255, green: 210/255, blue: 210/255))
+        .background(Color("PokemonGray2"))
         .cornerRadius(12)
         .shadow(color: Color.gray, radius: 5, x: -1.0, y: 3.0)
     }

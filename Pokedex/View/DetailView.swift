@@ -62,11 +62,12 @@ struct DetailView: View {
                         Text("Stats")
                             .font(.system(size: 22))
                             .bold()
-                            .foregroundColor(Color.black)
+                            .foregroundColor(.gray)
                         HStack(alignment: .top, spacing: 15) {
                             ForEach(pokemon.stats, id: \.self.stat.name) {stat in
                                 VStack {
-                                    Text("1.5")
+                                    Text(String(stat.base_stat))
+                                        .foregroundColor(.black)
                                     ZStack (alignment: .bottom){
                                         Rectangle()
                                             .fill(Color.white)
@@ -78,11 +79,12 @@ struct DetailView: View {
                                             .cornerRadius(10)
                                     }
                                     Text(viewModel.makeTitle(name: stat.stat.name))
+                                        .bold()
                                         .lineLimit(nil)
                                         .frame(width: 40)
                                         .fixedSize(horizontal: false, vertical: true)
                                         .multilineTextAlignment(.center)
-                                        
+                                        .foregroundColor(.black)
                                 }
                             }
                         }
@@ -90,18 +92,18 @@ struct DetailView: View {
                     .padding([.leading, .trailing], 15)
                     .padding(.bottom, 160)
                 }
-                .background(Color(red: 210/255, green: 210/255, blue: 210/255))
+                .background(Color("PokemonGray2"))
                 .clipShape(roundedPage())
                 .padding(.top, 200)
                 VStack {
                     HStack (alignment: .center, spacing: 15){
                         Text(pokemon.name.capitalized)
-                            .font(.largeTitle).bold()
-                            .foregroundColor(.black)
+                            .font(.largeTitle)
+                            .foregroundColor(Color(UIColor.label)) //////
                         Text("#"+String(format: "%03d", pokemon.id))
                             .italic()
                             .font(.subheadline)
-                            .foregroundColor(Color(red: 111/255, green: 111/255, blue: 111/255))
+                            .foregroundColor(Color("PokemonGray"))
                     }
                     RemoteImageView(url: URL(string: (pokemon.sprites.other?.officialArtwork.frontDefault)!)!)
                         .scaledToFit()
@@ -115,7 +117,7 @@ struct DetailView: View {
             HStack {
                 Image(systemName: "chevron.backward")
                     .frame(width: 10, height: 20)
-                    .foregroundColor(Color(UIColor.systemBlue))
+                    .foregroundColor(Color(UIColor.label))
                 Image("pokeball")
                     .resizable()
                     .scaledToFit()
