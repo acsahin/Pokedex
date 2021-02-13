@@ -1,12 +1,11 @@
 <p align='center'><img src='logo.png' width=300/></p>
 
 ---
-<p align='center'><
+
 ![Swift](https://img.shields.io/badge/swift-5.3.2-orange.svg?style=for-the-badge)
 ![SwiftUI](https://img.shields.io/badge/use-swift_ui-orange.svg?style=for-the-badge)
 ![Xcode](https://img.shields.io/badge/Xcode-12.4-blue.svg?style=for-the-badge)
 ![PokeAPI](https://img.shields.io/badge/PokeAPI-V2-blue.svg?style=for-the-badge)
-/></p>
 
 
 Pokedex Application using **SwiftUI**/**PokeAPI**.
