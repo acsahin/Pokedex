@@ -23,10 +23,13 @@ class PokedexListViewModel: ObservableObject {
     let maxPokemonNumber = 898
     
     init() {
+        
         //Download pokemons async
-        DispatchQueue.global().async {
+        let concurrentQueue = DispatchQueue(label: "ACS", qos: .background, attributes: .concurrent, autoreleaseFrequency: .workItem, target: .global())
+        concurrentQueue.async {
             self.downloadPokemon()
         }
+
     }
     
     func downloadPokemon() {
@@ -36,16 +39,17 @@ class PokedexListViewModel: ObservableObject {
             group.enter()
             let stringUrl = self.listUrl + "/pokemon/\(order)"
             print(stringUrl)
+
             let url = URL(string: stringUrl)
             URLSession.shared.dataTask(with: url!) { (data, response, error) in
                 guard let data = data else { return }
                 guard let pok = try? JSONDecoder().decode(Pokemon.self, from: data) else { return }
                 tempList.append(pok)
                 
+                // To change published variables
+                // Go back to main thread
                 DispatchQueue.main.async {
                     if tempList.count % 30 == 0 {
-                        // To change published variables
-                        // Go back to main thread
                         self.pokemonList.append(contentsOf: tempList)
                         tempList.removeAll()
                         
@@ -67,16 +71,21 @@ class PokedexListViewModel: ObservableObject {
                 }
                 group.leave()
             }.resume()
+            
             group.wait()
         }
         group.notify(queue: .main) {
             // Give a message
             //BUGFIX
+            print("leave")
             if self.limit == (self.maxPokemonNumber - (self.maxPokemonNumber % 30)) {
                 self.nextButtonVisibility = true
             }
         }
     }
+    
+    
+    
     
     //MARK: - Next Page
     func nextPage() {
@@ -94,6 +103,7 @@ class PokedexListViewModel: ObservableObject {
             editCurrentPage()
         }
     }
+    
     
     //MARK: - Back Page
     func backPage() {
@@ -113,6 +123,7 @@ class PokedexListViewModel: ObservableObject {
             backButtonVisibility = false
         }
     }
+    
     
     //MARK: - Edit Page
     func editCurrentPage() {
