@@ -22,9 +22,9 @@ Pokedex Application using **SwiftUI**/**PokeAPI**.
 
 ## Feature
 
-- Use SwiftUI fully.
-- Compatible with DarkMode.
-- Support iPad (Full Screen) and all phones from iPhone 8.
+- SwiftUI
+- Support DarkMode.
+- Support iPad (Full Screen) and iPhone 8 and above.
 
 ## Dependencies
 
